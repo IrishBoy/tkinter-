@@ -7,14 +7,21 @@ width_of_the_canvas = 800
 heiht_of_the_canvas = 500
 background_color = 'pink'
 width_of_the_input_field = 30
-borderwidth_of_the_input_field = 1
+borderwidth_of_the_input_field = 3
 rectangle_x_left_corner = 10
 rectangle_y_left_corner = 490
 rectangle_x_right_corner = 790
-rectangle_y_right_corner = 60
+rectangle_y_right_corner = 120
 rectangle_border_color = 'black'
 button_texts = 'Проверить'
-common_font = 'Arial 18'
+common_font = 'Arial 14'
+lab_left_x_place = 10
+lab_right_x_place = 600
+ent_x_place = 300
+but_x_place = 600
+str1_y_place = 10
+str2_y_place = 50
+str3_y_place = 90
 
 tk = Tk()
 tk.title("Just a game 4 fun")
@@ -29,33 +36,26 @@ ent2 = Entry(tk, width = width_of_the_input_field, bd = borderwidth_of_the_input
 ent3 = Entry(tk, width = width_of_the_input_field, bd = borderwidth_of_the_input_field)
 
 #buttons
-but1 = Button(tk,text = button_texts)
+but1 = Button(tk,text = button_texts, height = 1)
 but2 = Button(tk,text = button_texts)
 but3 = Button(tk,text = button_texts)
 
 #captions
-lab1_first_color = Label(tk, text = "Количество красных шариков:", font = common_font)
-lab1_right = Label(tk, text = "Attempts left:", font = common_font)
-lab2_second_color = Label(tk, text = "Количество желтых шариков:", font = common_font)
-lab2_right = Label(tk, text = "Attempts left:", font = common_font)
-lab3_third_color = Label(tk, text = "Количество синих шариков:", font = common_font)
-lab3_right = Label(tk, text = "Attempts left:", font = common_font)
+lab1_first_color = Label(tk, text = "Количество красных шариков:", font = common_font, bg = background_color)
+lab2_second_color = Label(tk, text = "Количество желтых шариков:", font = common_font, bg = background_color)
+lab3_third_color = Label(tk, text = "Количество синих шариков:", font = common_font, bg = background_color)
 
-#first string(red)
-# ent1.grid(row = 0, column = 0, padx = 20)
 
-#packs
-lab1_first_color.pack()
-lab1_right.pack()
-lab2_second_color.pack()
-lab2_right.pack()
-lab3_third_color.pack()
-lab3_right.pack()
-but1.pack()
-but2.pack()
-but3.pack()
-ent1.pack()
-ent2.pack()
-ent3.pack()
+
+#packs and places
+lab1_first_color.place(x = lab_left_x_place, y = str1_y_place)
+lab2_second_color.place(x = lab_left_x_place, y = str2_y_place)
+lab3_third_color.place(x = lab_left_x_place, y = str3_y_place)
+but1.place( x = but_x_place, y = str1_y_place)
+but2.place( x = but_x_place, y = str2_y_place)
+but3.place( x = but_x_place, y = str3_y_place)
+ent1.place( x = ent_x_place, y = str1_y_place)
+ent2.place( x = ent_x_place, y = str2_y_place)
+ent3.place( x = ent_x_place, y = str3_y_place)
 canvas.pack()
 tk.mainloop()
