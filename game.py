@@ -24,10 +24,17 @@ str2_y_place = 50
 str3_y_place = 90
 
 
+def movements():
+	canvas.move()
+#start circles
 def create(number):
-	for i in range (num):
-		canvas.create_oval()
+	for i in range (number):
+		r = random.randint(5, 30)
+		x_start = random.randint(40, 730)
+		y_start = random.randint(150,420)
+		canvas.create_oval([x_start, y_start],[x_start + 2 * r,y_start + 2 * r],fill = 'black', outline = 'green',tag = 'circle' + str(i))
 
+#checking
 def check(event):
 	click = event.widget
 	if click == but1:
@@ -76,9 +83,19 @@ but2.bind("<Button-1>", check)
 but3.bind("<Button-1>", check)
 
 #creating
-create(red_circles)
-create(yellow_circles)
-create(blue_circles)
+create(all_circles)
+
+#repainting
+tags = []
+for i in range(all_circles):
+	tags.append(i)
+for i in range(0,red_circles):
+	canvas.itemconfig('circle' + str(i), fill = 'red')
+for i in range(red_circles,(red_circles + blue_circles)):
+	canvas.itemconfig('circle' + str(i), fill = 'blue')
+for i in range((red_circles + blue_circles), len(tags)):
+	canvas.itemconfig('circle' + str(i), fill = 'yellow')
+
 
 #packs and places
 lab1_first_color.place(x = lab_left_x_place, y = str1_y_place)
