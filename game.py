@@ -23,6 +23,25 @@ str1_y_place = 10
 str2_y_place = 50
 str3_y_place = 90
 
+
+def create(number):
+	for i in range (num):
+		canvas.create_oval()
+
+def check(event):
+	click = event.widget
+	if click == but1:
+		right_ans = red_circles
+		attempt = ent1.get()
+	elif click == but2:
+		right_ans = yellow_circles
+		attempt = ent2.get()
+	else:
+		right_ans = blue_circles
+		attempt = ent3.get()
+	#сделать что-то
+
+
 tk = Tk()
 tk.title("Just a game 4 fun")
 
@@ -45,7 +64,21 @@ lab1_first_color = Label(tk, text = "Количество красных шар�
 lab2_second_color = Label(tk, text = "Количество желтых шариков:", font = common_font, bg = background_color)
 lab3_third_color = Label(tk, text = "Количество синих шариков:", font = common_font, bg = background_color)
 
+#random number circles
+all_circles = random.randint(0, 50)
+red_circles = random.randint(0, all_circles)
+yellow_circles = random.randint(0, (all_circles - red_circles))
+blue_circles =  random.randint(0, (all_circles - red_circles - yellow_circles))
 
+#bind
+but1.bind("<Button-1>", check)
+but2.bind("<Button-1>", check)
+but3.bind("<Button-1>", check)
+
+#creating
+create(red_circles)
+create(yellow_circles)
+create(blue_circles)
 
 #packs and places
 lab1_first_color.place(x = lab_left_x_place, y = str1_y_place)
