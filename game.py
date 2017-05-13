@@ -24,8 +24,8 @@ str2_y_place = 50
 str3_y_place = 90
 
 
-def movements():
-	canvas.move()
+def movements(number):
+	canvas.move('circle' + str(number))
 #start circles
 def create(number):
 	for i in range (number):
@@ -39,22 +39,36 @@ def check(event):
 	click = event.widget
 	if click == but1:
 		right_ans = red_circles
-		attempt = ent1.get()
+		attempt = int(ent1.get())
+		if attempt == right_ans :
+			canvas.create_line(750,10,750,40, width = 3, fill = 'green')
+			canvas.create_line(735,25,765,25, width = 3, fill = 'green')
+		else:
+			canvas.create_line(735,25,765,25, width = 3, fill = 'red')
 	elif click == but2:
 		right_ans = yellow_circles
-		attempt = ent2.get()
+		attempt = int(ent2.get())
+		if attempt == right_ans :
+			canvas.create_line(750,50,750,80, width = 3, fill = 'green')
+			canvas.create_line(735,65,765,65, width = 3, fill = 'green')
+		else:
+			canvas.create_line(735,65,765,65, width = 3, fill = 'red')
 	else:
 		right_ans = blue_circles
-		attempt = ent3.get()
-	#сделать что-то
-
+		attempt = int(ent3.get())
+		if attempt == right_ans :
+			canvas.create_line(750,90,750,120, width = 3, fill = 'green')
+			canvas.create_line(735,105,765,105, width = 3, fill = 'green')
+		else:
+			canvas.create_line(735,105,765,105, width = 3, fill = 'red')
 
 tk = Tk()
 tk.title("Just a game 4 fun")
 
 #canvas
 canvas = Canvas(tk, width = width_of_the_canvas, height = heiht_of_the_canvas, bg = background_color)
-canvas.create_rectangle(rectangle_x_left_corner, rectangle_y_left_corner, rectangle_x_right_corner, rectangle_y_right_corner, outline  = rectangle_border_color,)
+canvas.create_rectangle(rectangle_x_left_corner, rectangle_y_left_corner, rectangle_x_right_corner, rectangle_y_right_corner, outline  = rectangle_border_color)
+
 
 #input fields
 ent1 = Entry(tk, width = width_of_the_input_field, bd = borderwidth_of_the_input_field)
@@ -71,7 +85,7 @@ lab1_first_color = Label(tk, text = "Количество красных шар�
 lab2_second_color = Label(tk, text = "Количество желтых шариков:", font = common_font, bg = background_color)
 lab3_third_color = Label(tk, text = "Количество синих шариков:", font = common_font, bg = background_color)
 
-#random number circles
+# random number circles
 all_circles = random.randint(0, 50)
 red_circles = random.randint(0, all_circles)
 yellow_circles = random.randint(0, (all_circles - red_circles))
