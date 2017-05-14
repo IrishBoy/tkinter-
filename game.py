@@ -3,6 +3,7 @@ import random
 import time
 from math import ceil
 
+
 #константы
 width_of_the_canvas = 800
 heiht_of_the_canvas = 500
@@ -26,32 +27,40 @@ str3_y_place = 90
 
 
 def movements(number):
-	side = []
-	c = canvas.coords('circle' + str(number))
-#coordinates of given circle
-	r = ceil((int(c[2]) - int(c[0])) / 2)
-#check which sides are available to move
-	if int(c[0]) > 10 + r :
-		side.append(1)
-	if int(c[1]) < 490 - r:
-		side.append(2)
-	if int(c[2]) < 790 - r:
-		side.append(3)
-	if int(c[3]) > 120 + r:
-		side.append(3)
-# 1 - left ; 2 - down; 3 - right; 4 - up
-	side_to_move = int(random.choice(side))
-#random to what available side we are going to move
-	if side_to_move == 1:
-		canvas.move('circle' + str(number), -10, 0)
-	if side_to_move == 2:
-		canvas.move('circle' + str(number), 0, -10)
-	if side_to_move == 3:
-		canvas.move('circle' + str(number), 10, 0)
-	if side_to_move == 4:
-		canvas.move('circle' + str(number), 0, 10)
-
-	tk.after(100, movements)
+# 	side = []
+# 	c = canvas.coords('circle' + str(number))
+# #coordinates of given circle
+# 	r = ceil((int(c[2]) - int(c[0])) / 2)
+# #check which sides are available to move
+# 	if int(c[0]) > 10 + r :
+# 		side.append(1)
+# 	if int(c[1]) < 490 - r:
+# 		side.append(2)
+# 	if int(c[2]) < 790 - r:
+# 		side.append(3)
+# 	if int(c[3]) > 120 + r:
+# 		side.append(3)
+# # 1 - left ; 2 - down; 3 - right; 4 - up
+# 	side_to_move = int(random.choice(side))
+# #random to what available side we are going to move
+# 	if side_to_move == 1:
+# 		canvas.move('circle' + str(number), -10, 0)
+# 	if side_to_move == 2:
+# 		canvas.move('circle' + str(number), 0, -10)
+# 	if side_to_move == 3:
+# 		canvas.move('circle' + str(number), 10, 0)
+# 	if side_to_move == 4:
+# 		canvas.move('circle' + str(number), 0, 10)
+# 	tk.after(100, movements)
+	global vx,vy
+	canvas.move('circle'+str(i),vx,vy)
+	cor = canvas.coords('circle' + str(i))
+	x = cor[0]+10
+	tk.after(50,movements)
+	if cor[2]>=790 or cor[0]<=10:
+			vx = -vx
+	if cor[3]>=490 or cor[1]<=120:
+			vy = -vy
 
 #start circles
 def create(number):
@@ -61,7 +70,7 @@ def create(number):
 		y_start = random.randint(150,420)
 		canvas.create_oval([x_start, y_start],[x_start + 2 * r,y_start + 2 * r],fill = 'black', outline = 'green',tag = 'circle' + str(i))
 #paint into black
-global result
+
 
 #checking
 def check(event):
@@ -75,12 +84,8 @@ def check(event):
 			canvas.create_line(735,25,765,25, width = 3, fill = 'green')
 			result+=1
 			if result == 3:
-				top = Toplevel()
-				top.title("Well played")
-				msg = Message(top, text="Well done, you win!")
-				msg.pack()
-				button = Button(top, text="End", command=top.destroy)
-				button.pack()
+				but4 = Button(tk, text = "Закрыть", command = tk.destroy)
+				but4.place(x = 400, y = 200 )
 # if answer is right draw a plus
 		else:
 			canvas.create_line(735,25,765,25, width = 3, fill = 'red')
@@ -93,12 +98,8 @@ def check(event):
 			canvas.create_line(735,65,765,65, width = 3, fill = 'green')
 			result+=1
 			if result == 3:
-				top = Toplevel()
-				top.title("Well played")
-				msg = Message(top, text="Well done, you win!")
-				msg.pack()
-				button = Button(top, text="End", command=top.destroy)
-				button.pack()
+				but4 = Button(tk, text = "Закрыть", command = tk.destroy)
+				but4.place(x = 400, y = 200 )
 # if answer is right draw a plus
 		else:
 			canvas.create_line(735,65,765,65, width = 3, fill = 'red')
@@ -111,43 +112,33 @@ def check(event):
 			canvas.create_line(735,105,765,105, width = 3, fill = 'green')
 			result+=1
 			if result == 3:
-				top = Toplevel()
-				top.title("Well played")
-				msg = Message(top, text="Well done, you win!")
-				msg.pack()
-				button = Button(top, text="End", command=top.destroy)
-				button.pack()
+				but4 = Button(tk, text = "Закрыть", command = tk.destroy)
+				but4.place(x = 400, y = 200 )
 # if answer is right draw a plus
 		else:
 			canvas.create_line(735,105,765,105, width = 3, fill = 'red')
 # else draw a minus
 
+
 tk = Tk()
 tk.title("Just a game 4 fun")
+
 
 #canvas
 canvas = Canvas(tk, width = width_of_the_canvas, height = heiht_of_the_canvas, bg = background_color)
 canvas.create_rectangle(rectangle_x_left_corner, rectangle_y_left_corner, rectangle_x_right_corner, rectangle_y_right_corner, outline  = rectangle_border_color)
 
 
-#input fields
-ent1 = Entry(tk, width = width_of_the_input_field, bd = borderwidth_of_the_input_field)
-ent2 = Entry(tk, width = width_of_the_input_field, bd = borderwidth_of_the_input_field)
-ent3 = Entry(tk, width = width_of_the_input_field, bd = borderwidth_of_the_input_field)
-
-#buttons
-but1 = Button(tk,text = button_texts, height = 1)
-but2 = Button(tk,text = button_texts)
-but3 = Button(tk,text = button_texts)
-
 # random number circles
 red_circles = random.randint(0, 6)
 yellow_circles = random.randint(0, 6)
 blue_circles =  random.randint(0, 6)
 
+
 #creating
 all_circles = red_circles + yellow_circles + blue_circles
 create(all_circles)
+
 
 #repainting
 tags = []
@@ -161,23 +152,37 @@ for i in range((red_circles + yellow_circles), all_circles ):
 	canvas.itemconfig('circle' + str(i), fill = 'blue')
 
 
+#move
+for i in range(all_circles):
+	cor = canvas.coords('circle' + str(i))
+	x = cor[0]+10
+	y = cor[1]+10
+	vx = random.randint(-10,10)
+	vy = random.randint(-10,10)
+	movements(i)
+
+#input fields
+ent1 = Entry(tk, width = width_of_the_input_field, bd = borderwidth_of_the_input_field)
+ent2 = Entry(tk, width = width_of_the_input_field, bd = borderwidth_of_the_input_field)
+ent3 = Entry(tk, width = width_of_the_input_field, bd = borderwidth_of_the_input_field)
+
+
+#buttons
+but1 = Button(tk,text = button_texts, height = 1)
+but2 = Button(tk,text = button_texts)
+but3 = Button(tk,text = button_texts)
+
+
 #captions
 lab1_first_color = Label(tk, text = "Количество красных шариков: " , font = common_font, bg = background_color)
 lab2_second_color = Label(tk, text = "Количество желтых шариков:" , font = common_font, bg = background_color)
 lab3_third_color = Label(tk, text = "Количество синих шариков:" , font = common_font, bg = background_color)
 
 
-
 #bind
 but1.bind("<Button-1>", check)
 but2.bind("<Button-1>", check)
 but3.bind("<Button-1>", check)
-
-
-
-move
-for i in range(all_circles):
-	movements(i)
 
 
 #packs and places
