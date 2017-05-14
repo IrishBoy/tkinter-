@@ -27,7 +27,7 @@ result = 0
 
 def movements(number):
 	side = []
-	c = canvas.coords('circle' + str(i))
+	c = canvas.coords('circle' + str(number))
 #coordinates of given circle
 	r = ceil((int(c[2]) - int(c[0])) / 2)
 #check which sides are available to move
@@ -125,7 +125,7 @@ lab2_second_color = Label(tk, text = "Количество желтых шари
 lab3_third_color = Label(tk, text = "Количество синих шариков:", font = common_font, bg = background_color)
 
 # random number circles
-all_circles = random.randint(0, 50)
+all_circles = random.randint(0, 15)
 red_circles = random.randint(0, all_circles)
 yellow_circles = random.randint(0, (all_circles - red_circles))
 blue_circles =  random.randint(0, (all_circles - red_circles - yellow_circles))
@@ -149,10 +149,16 @@ for i in range(red_circles,(red_circles + blue_circles)):
 for i in range((red_circles + blue_circles), len(tags)):
 	canvas.itemconfig('circle' + str(i), fill = 'yellow')
 
+if result == 3:
+	top = Toplevel()
+	top.title("Well played")
+	msg = Message(top, text="Well done, you win!")
+	msg.pack()
+	button = Button(top, text="End", command=top.destroy)
+	button.pack()
 #move
-while result != 3:
-	for i in range(all_circles):
-		movements(i)
+for i in range(all_circles):
+	movements(i)
 
 
 #packs and places
