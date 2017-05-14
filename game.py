@@ -1,6 +1,7 @@
 from tkinter import *
 import random
 import time
+from math import ceil
 
 #константы
 width_of_the_canvas = 800
@@ -22,10 +23,36 @@ but_x_place = 600
 str1_y_place = 10
 str2_y_place = 50
 str3_y_place = 90
-
+result = 0
 
 def movements(number):
-	canvas.move('circle' + str(number))
+	side = []
+	c = canvas.coords('circle' + str(i))
+#coordinates of given circle
+	r = ceil((int(c[2]) - int(c[0])) / 2)
+#check which sides are available to move
+	if int(c[0]) > 10 + r :
+		side.append(1)
+	if int(c[1]) < 490 - r:
+		side.append(2)
+	if int(c[2]) < 790 - r:
+		side.append(3)
+	if int(c[3]) > 120 + r:
+		side.append(3)
+# 1 - left ; 2 - down; 3 - right; 4 - up
+	side_to_move = int(random.choice(side))
+#random to what available side we are going to move
+	if side_to_move == 1:
+		canvas.move('circle' + str(number), -10, 0)
+	if side_to_move == 2:
+		canvas.move('circle' + str(number), 0, -10)
+	if side_to_move == 3:
+		canvas.move('circle' + str(number), 10, 0)
+	if side_to_move == 4:
+		canvas.move('circle' + str(number), 0, 10)
+
+	tk.after(100, movements)
+
 #start circles
 def create(number):
 	for i in range (number):
@@ -33,34 +60,46 @@ def create(number):
 		x_start = random.randint(40, 730)
 		y_start = random.randint(150,420)
 		canvas.create_oval([x_start, y_start],[x_start + 2 * r,y_start + 2 * r],fill = 'black', outline = 'green',tag = 'circle' + str(i))
+#paint into black
+
 
 #checking
 def check(event):
 	click = event.widget
+#check which bau has been pushed
 	if click == but1:
 		right_ans = red_circles
 		attempt = int(ent1.get())
 		if attempt == right_ans :
 			canvas.create_line(750,10,750,40, width = 3, fill = 'green')
 			canvas.create_line(735,25,765,25, width = 3, fill = 'green')
+			result+=1
+# if answer is right draw a plus
 		else:
 			canvas.create_line(735,25,765,25, width = 3, fill = 'red')
+# else draw a minus
 	elif click == but2:
 		right_ans = yellow_circles
 		attempt = int(ent2.get())
 		if attempt == right_ans :
 			canvas.create_line(750,50,750,80, width = 3, fill = 'green')
 			canvas.create_line(735,65,765,65, width = 3, fill = 'green')
+			result+=1
+# if answer is right draw a plus
 		else:
 			canvas.create_line(735,65,765,65, width = 3, fill = 'red')
+# else draw a minus
 	else:
 		right_ans = blue_circles
 		attempt = int(ent3.get())
 		if attempt == right_ans :
 			canvas.create_line(750,90,750,120, width = 3, fill = 'green')
 			canvas.create_line(735,105,765,105, width = 3, fill = 'green')
+			result+=1
+# if answer is right draw a plus
 		else:
 			canvas.create_line(735,105,765,105, width = 3, fill = 'red')
+# else draw a minus
 
 tk = Tk()
 tk.title("Just a game 4 fun")
@@ -109,6 +148,11 @@ for i in range(red_circles,(red_circles + blue_circles)):
 	canvas.itemconfig('circle' + str(i), fill = 'blue')
 for i in range((red_circles + blue_circles), len(tags)):
 	canvas.itemconfig('circle' + str(i), fill = 'yellow')
+
+#move
+# while result != 3:
+# 	for i in range(all_circles):
+# 		movements(i)
 
 
 #packs and places
