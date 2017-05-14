@@ -150,9 +150,9 @@ for i in range((red_circles + blue_circles), len(tags)):
 	canvas.itemconfig('circle' + str(i), fill = 'yellow')
 
 #move
-# while result != 3:
-# 	for i in range(all_circles):
-# 		movements(i)
+while result != 3:
+	for i in range(all_circles):
+		movements(i)
 
 
 #packs and places
