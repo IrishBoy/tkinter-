@@ -26,35 +26,10 @@ str2_y_place = 50
 str3_y_place = 90
 
 
-def movements(number):
-# 	side = []
-# 	c = canvas.coords('circle' + str(number))
-# #coordinates of given circle
-# 	r = ceil((int(c[2]) - int(c[0])) / 2)
-# #check which sides are available to move
-# 	if int(c[0]) > 10 + r :
-# 		side.append(1)
-# 	if int(c[1]) < 490 - r:
-# 		side.append(2)
-# 	if int(c[2]) < 790 - r:
-# 		side.append(3)
-# 	if int(c[3]) > 120 + r:
-# 		side.append(3)
-# # 1 - left ; 2 - down; 3 - right; 4 - up
-# 	side_to_move = int(random.choice(side))
-# #random to what available side we are going to move
-# 	if side_to_move == 1:
-# 		canvas.move('circle' + str(number), -10, 0)
-# 	if side_to_move == 2:
-# 		canvas.move('circle' + str(number), 0, -10)
-# 	if side_to_move == 3:
-# 		canvas.move('circle' + str(number), 10, 0)
-# 	if side_to_move == 4:
-# 		canvas.move('circle' + str(number), 0, 10)
-# 	tk.after(100, movements)
+def movements(position):
 	global vx,vy
-	canvas.move('circle'+str(i),vx,vy)
-	cor = canvas.coords('circle' + str(i))
+	canvas.move('circle' + str(position),vx,vy)
+	cor = canvas.coords('circle' + str(position))
 	x = cor[0]+10
 	tk.after(50,movements)
 	if cor[2]>=790 or cor[0]<=10:
