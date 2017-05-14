@@ -23,7 +23,7 @@ but_x_place = 600
 str1_y_place = 10
 str2_y_place = 50
 str3_y_place = 90
-result = 0
+
 
 def movements(number):
 	side = []
@@ -61,7 +61,7 @@ def create(number):
 		y_start = random.randint(150,420)
 		canvas.create_oval([x_start, y_start],[x_start + 2 * r,y_start + 2 * r],fill = 'black', outline = 'green',tag = 'circle' + str(i))
 #paint into black
-
+global result
 
 #checking
 def check(event):
@@ -74,6 +74,13 @@ def check(event):
 			canvas.create_line(750,10,750,40, width = 3, fill = 'green')
 			canvas.create_line(735,25,765,25, width = 3, fill = 'green')
 			result+=1
+			if result == 3:
+				top = Toplevel()
+				top.title("Well played")
+				msg = Message(top, text="Well done, you win!")
+				msg.pack()
+				button = Button(top, text="End", command=top.destroy)
+				button.pack()
 # if answer is right draw a plus
 		else:
 			canvas.create_line(735,25,765,25, width = 3, fill = 'red')
@@ -85,6 +92,13 @@ def check(event):
 			canvas.create_line(750,50,750,80, width = 3, fill = 'green')
 			canvas.create_line(735,65,765,65, width = 3, fill = 'green')
 			result+=1
+			if result == 3:
+				top = Toplevel()
+				top.title("Well played")
+				msg = Message(top, text="Well done, you win!")
+				msg.pack()
+				button = Button(top, text="End", command=top.destroy)
+				button.pack()
 # if answer is right draw a plus
 		else:
 			canvas.create_line(735,65,765,65, width = 3, fill = 'red')
@@ -96,6 +110,13 @@ def check(event):
 			canvas.create_line(750,90,750,120, width = 3, fill = 'green')
 			canvas.create_line(735,105,765,105, width = 3, fill = 'green')
 			result+=1
+			if result == 3:
+				top = Toplevel()
+				top.title("Well played")
+				msg = Message(top, text="Well done, you win!")
+				msg.pack()
+				button = Button(top, text="End", command=top.destroy)
+				button.pack()
 # if answer is right draw a plus
 		else:
 			canvas.create_line(735,105,765,105, width = 3, fill = 'red')
@@ -119,23 +140,13 @@ but1 = Button(tk,text = button_texts, height = 1)
 but2 = Button(tk,text = button_texts)
 but3 = Button(tk,text = button_texts)
 
-#captions
-lab1_first_color = Label(tk, text = "Количество красных шариков:", font = common_font, bg = background_color)
-lab2_second_color = Label(tk, text = "Количество желтых шариков:", font = common_font, bg = background_color)
-lab3_third_color = Label(tk, text = "Количество синих шариков:", font = common_font, bg = background_color)
-
 # random number circles
-all_circles = random.randint(0, 15)
-red_circles = random.randint(0, all_circles)
-yellow_circles = random.randint(0, (all_circles - red_circles))
-blue_circles =  random.randint(0, (all_circles - red_circles - yellow_circles))
-
-#bind
-but1.bind("<Button-1>", check)
-but2.bind("<Button-1>", check)
-but3.bind("<Button-1>", check)
+red_circles = random.randint(0, 6)
+yellow_circles = random.randint(0, 6)
+blue_circles =  random.randint(0, 6)
 
 #creating
+all_circles = red_circles + yellow_circles + blue_circles
 create(all_circles)
 
 #repainting
@@ -144,19 +155,27 @@ for i in range(all_circles):
 	tags.append(i)
 for i in range(0,red_circles):
 	canvas.itemconfig('circle' + str(i), fill = 'red')
-for i in range(red_circles,(red_circles + blue_circles)):
-	canvas.itemconfig('circle' + str(i), fill = 'blue')
-for i in range((red_circles + blue_circles), len(tags)):
+for i in range(red_circles,(red_circles + yellow_circles)):
 	canvas.itemconfig('circle' + str(i), fill = 'yellow')
+for i in range((red_circles + yellow_circles), all_circles ):
+	canvas.itemconfig('circle' + str(i), fill = 'blue')
 
-if result == 3:
-	top = Toplevel()
-	top.title("Well played")
-	msg = Message(top, text="Well done, you win!")
-	msg.pack()
-	button = Button(top, text="End", command=top.destroy)
-	button.pack()
-#move
+
+#captions
+lab1_first_color = Label(tk, text = "Количество красных шариков: " , font = common_font, bg = background_color)
+lab2_second_color = Label(tk, text = "Количество желтых шариков:" , font = common_font, bg = background_color)
+lab3_third_color = Label(tk, text = "Количество синих шариков:" , font = common_font, bg = background_color)
+
+
+
+#bind
+but1.bind("<Button-1>", check)
+but2.bind("<Button-1>", check)
+but3.bind("<Button-1>", check)
+
+
+
+move
 for i in range(all_circles):
 	movements(i)
 
