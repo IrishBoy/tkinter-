@@ -30,7 +30,8 @@ def movements(position):
 	global vx,vy
 	canvas.move('circle' + str(position),vx,vy)
 	cor = canvas.coords('circle' + str(position))
-	x = cor[0]+10
+	r = int(cor[2]) - int(cor[0])
+	x = cor[0]+r
 	tk.after(50,movements)
 	if cor[2]>=790 or cor[0]<=10:
 			vx = -vx
@@ -130,8 +131,9 @@ for i in range((red_circles + yellow_circles), all_circles ):
 #move
 for i in range(all_circles):
 	cor = canvas.coords('circle' + str(i))
-	x = cor[0]+10
-	y = cor[1]+10
+	r = int(cor[2]) - int(cor[0])
+	x = cor[0]+r
+	y = cor[1]+r
 	vx = random.randint(-10,10)
 	vy = random.randint(-10,10)
 	movements(i)
